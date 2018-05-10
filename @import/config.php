@@ -28,7 +28,6 @@
 		'wintersun'
 	]);
 	define('__CONTRIB__', [
-		//'Debukuk'
 		'wintersun'
 	]);
 	define('__HASH_SALT__', 'wintersun');

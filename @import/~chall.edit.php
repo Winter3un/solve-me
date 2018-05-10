@@ -1,13 +1,14 @@
 <?php
-	if(isset($_POST['title'],$_POST['category'],$_POST['flag'],$_POST['score'], $_POST['contents'])){
+	if(isset($_POST['no'],$_POST['title'],$_POST['category'],$_POST['flag'],$_POST['score'], $_POST['contents'])){
 
 		# not logged in
 		is_login() or output(['status' => 'l']);
+		$_POST['flag'] = preg_replace('/^flag\{(.*)\}$/is', '${1}', $_POST['flag']);
+		$_POST['flag'] = secure_hash($_POST['flag']);
 
 		//is_chall_link($_POST['challenge']) or output(['status' => 'x']); # valid challenge
 		//is_writeup_contents($_POST['contents']) or output(['status' => 'p']); # valid contents
-		$_POST['flag'] = preg_replace('/^flag\{(.*)\}$/is', '${1}', $_POST['flag']);
-		$_POST['flag'] = secure_hash($_POST['flag']);
+
 		#check exist challenge
 		$p = $pdo->prepare("
 			SELECT
@@ -45,29 +46,18 @@
  */
 		# upload chall
 		$p = $pdo->prepare("
-			INSERT INTO
-			`{$db_prefix}_problem`
-			(
-				`no`,
-				`category`,
-				`title`,
-				`contents`,
-				`score`,
-				`flag`,
-				`author`,
-				`register_time`
-			)
-			VALUES
-			(
-				NULL,
-				:category,
-				:title,
-				:contents,
-				:score,
-				:flag,
-				:author,
-				CURRENT_TIMESTAMP
-			)
+			UPDATE
+				`{$db_prefix}_problem`
+			SET 
+				`category` = :category,
+				`title` = :title,
+				`contents` = :contents,
+				`score` = :score,
+				`flag` = :flag,
+				`author` = :author,
+				`register_time` = CURRENT_TIMESTAMP
+			WHERE
+				`no` = :no
 		");
 		$p->bindParam(':category', $_POST['category']);
 		$p->bindParam(':title', $_POST['title']);
@@ -75,6 +65,8 @@
 		$p->bindParam(':score', $_POST['score']);
 		$p->bindParam(':flag', $_POST['flag']);
 		$p->bindParam(':author', $_SESSION['username']);
+		$p->bindParam(':no',$_POST['no']);
+			
 		$p->execute();
 /*
 		# get no of written writeup

@@ -86,6 +86,11 @@
 							</li><li>
 								<a href="/profile">Profile</a>
 							</li>
+							<?php if(is_admin()){?>
+							<li>
+<a href="/admin">admin</a>							
+</li>
+							<?php }?>
 						</ul>
 					</nav>
 <?php

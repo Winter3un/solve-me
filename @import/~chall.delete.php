@@ -3,15 +3,15 @@
 
 		# not logged in
 		is_login() or output(['status' => 'l']);
+		is_admin() or error('403');
+		//is_writeup_no($_POST['no']) or output(['status' => 'x']); # valid no
 
-		is_writeup_no($_POST['no']) or output(['status' => 'x']); # valid no
-
-		# check exist writeup
+		# check exist problem
 		$p = $pdo->prepare("
 			SELECT
 				1
 			FROM
-				`{$db_prefix}_writeup`
+				`{$db_prefix}_problem`
 			WHERE
 				`no`=:no
 			LIMIT
@@ -21,13 +21,14 @@
 		$p->execute();
 		$p->fetch(PDO::FETCH_ASSOC) or output(['status' => 'n']);
 
+		/*
 		# check permisson
 		if(!is_admin()){
 			$p = $pdo->prepare("
 				SELECT
 					1
 				FROM
-					`{$db_prefix}_writeup`
+					`{$db_prefix}_problem`
 				WHERE
 					`no`=:no AND
 					`author`=:username
@@ -39,12 +40,12 @@
 			$p->execute();
 			$p->fetch(PDO::FETCH_ASSOC) or output(['status' => 'p']);
 		}
-
-		# delete writeup
+		 */
+		# delete problem
 		$p = $pdo->prepare("
 			DELETE
 			FROM
-				`{$db_prefix}_writeup`
+				`{$db_prefix}_problem`
 			WHERE
 				`no`=:no
 			LIMIT
@@ -58,7 +59,7 @@
 			SELECT
 				1
 			FROM
-				`{$db_prefix}_writeup`
+				`{$db_prefix}_problem`
 			WHERE
 				`no`=:no
 			LIMIT

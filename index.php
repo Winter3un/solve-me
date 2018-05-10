@@ -56,7 +56,20 @@
 			check_method('POST') and (include(__DIR__.'/@import/~chall.upload.php')) or 
 			error('method');
 			die;
-
+		case 'edit':
+			if($argc === 4) 
+				check_method('GET') and (include(__DIR__.'/@import/chall.edit.php')) or error('method');
+			else if($argc === 3)	
+				check_method('GET') and (include(__DIR__.'/@import/chall.admin.php')) or
+				check_method('POST') and (include(__DIR__.'/@import/~chall.edit.php')) or
+				error('method');
+			else
+				break;
+			die;
+		case 'delete':
+			if($argc!==3)break;
+			check_method("POST") and (include(__DIR__.'/@import/~chall.delete.php')) or error('method');
+			die;
 		default:
 			if($argc !== 3) break;
 			check_method('GET') and (include(__DIR__.'/@import/chall.php')) or
@@ -81,7 +94,11 @@
 			die;
 		}
 		break;
-
+	case 'admin':
+		if($argc !== 2) break;
+		check_method('GET') and (include(__DIR__.'/@import/chall.admin.php')) or error('method');
+		die;
+		break;
 	case 'status':
 		isset($argv[2]) or $argv[2] = '';
 		switch($argv[2]){
