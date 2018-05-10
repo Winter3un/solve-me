@@ -1,3 +1,7 @@
+# 2018-5-10
+
+ADD ADMIN CONTROL
+
 # Solve Me
 
 ![main](https://i.imgur.com/u5LwdYl.png)
