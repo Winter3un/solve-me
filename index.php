@@ -50,6 +50,12 @@
 			check_method('POST') and (include(__DIR__.'/@import/~chall.auth.php')) or
 			error('method');
 			die;
+		case 'upload':
+			if($argc !==3)break;
+			check_method('GET') and (include(__DIR__.'/@import/chall.upload.php')) or 
+			check_method('POST') and (include(__DIR__.'/@import/~chall.upload.php')) or 
+			error('method');
+			die;
 
 		default:
 			if($argc !== 3) break;

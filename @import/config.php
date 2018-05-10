@@ -1,5 +1,5 @@
 <?php
-	error_reporting(0);
+//	error_reporting(0);
 	session_start();
 
 	######################################################################################################################
@@ -15,23 +15,23 @@
 
 	# sql settings
 	define('__DB__', [
-		'host' => '**secret**',
-		'username' => '**secret**',
-		'password' => '**secret**',
-		'name' => '**secret**',
+		'host' => '127.0.0.1',
+		'username' => 'root',
+		'password' => '',
+		'name' => 'solve',
 		'prefix' => 'solveme',
 	]);
 	$db_prefix = __DB__['prefix'];
 
 	# about security settings
 	define('__ADMIN__', [
-		'Admin',
-		'Safflower'
+		'wintersun'
 	]);
 	define('__CONTRIB__', [
-		'Debukuk'
+		//'Debukuk'
+		'wintersun'
 	]);
-	define('__HASH_SALT__', '**secret**');
+	define('__HASH_SALT__', 'wintersun');
 
 	# option settings
 	define('__IS_HTML_PACK__', false);

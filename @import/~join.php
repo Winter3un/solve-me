@@ -4,6 +4,7 @@
 		is_login() and output(['status' => 'a']); # already logged
 
 		is_username($_POST['username']) or output(['status' => 'x']); # valid username
+		
 		is_email($_POST['email']) or output(['status' => 'x']); # valid email
 		is_password($_POST['password']) or output(['status' => 'x']); # valid password
 		($_POST['password'] === $_POST['confirm-password']) or output(['status' => 'x']); # valid password
@@ -83,6 +84,7 @@
 		$p->bindParam(':username', $_POST['username']);
 		$p->bindParam(':email', $_POST['email']);
 		$p->execute();
+		//die("123");
 		$p->fetch(PDO::FETCH_ASSOC) or output(['status' => 'x']); # not exists username
 
 		set_login($_POST['username']);
